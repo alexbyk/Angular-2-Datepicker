@@ -169,16 +169,7 @@ import { Calendar } from './calendar';
       class="datepicker"
       [ngStyle]="{'font-family': fontFamily}"
     >
-      <input
-        [disabled]="disabled"
-        class="datepicker__input"
-        [ngStyle]="{'color': altInputStyle ? colors['white'] : colors['black'],
-                    'background-color': altInputStyle ? accentColor : colors['white'],
-                    'border': altInputStyle ? '' : '1px solid #dadada'}"
-        (click)="onInputClick()"
-        [(ngModel)]="inputText"
-        readonly="true"
-      >
+      <button [disabled]="disabled" (click)="onInputClick()">{{inputText}}</button>
       <div
         class="datepicker__calendar"
         *ngIf="showCalendar"
