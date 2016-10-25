@@ -4,3 +4,7 @@ npm-debug.log
 **/*.ngfactory.*
 **/*.js
 **/*.js.map
+**/*.json
+index.js
+index.js.map
+index.metadata.json

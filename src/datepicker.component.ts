@@ -270,8 +270,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
   // two way bindings
   @Output() dateChange = new EventEmitter<Date>();
 
-  @Input() get date() { return this.dateVal; };
-  set date(val) {
+  @Input() get date(): Date { return this.dateVal; };
+  set date(val: Date) {
     this.dateVal = val;
     this.dateChange.emit(val);
   }
@@ -352,7 +352,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
     this.setDate();
   }
 
-  private setCurrentValues(date) {
+  private setCurrentValues(date: Date) {
     this.currentMonthNumber = date.getMonth();
     this.currentMonth = this.months[this.currentMonthNumber];
     this.currentYear = date.getFullYear();
