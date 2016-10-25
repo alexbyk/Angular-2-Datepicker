@@ -452,7 +452,6 @@ export class DatepickerComponent implements OnInit, OnChanges {
 
   onSelectDay(day: Date): void {
     this.date = day;
-    this.setInputText(day);
     this.showCalendar = !this.showCalendar;
     this.onSelect.emit(day);
   }
