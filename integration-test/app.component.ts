@@ -14,6 +14,6 @@ export class AppComponent {
 
   constructor() {
     this.date = new Date();
-    setTimeout(this.date = new Date(2016, 8), 3000);
+    setTimeout(() => this.date = new Date(2016, 0, 1), 1000);
   }
 }
