@@ -276,7 +276,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
   @Input() rangeStart: Date;
   @Input() rangeEnd: Date;
   // data
-  @Input() emptyText: string = 'Select a date';
+  @Input() placeholder: string = 'Select a date';
   @Input() inputText: string;
   // view logic
   @Input() showCalendar: boolean;
@@ -358,7 +358,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
       this.setCurrentValues(this.date);
     }
     else {
-      this.inputText = this.emptyText;
+      this.inputText = this.placeholder;
       this.setCurrentValues(new Date());
     }
   }

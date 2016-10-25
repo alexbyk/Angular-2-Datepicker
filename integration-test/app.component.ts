@@ -16,7 +16,7 @@ import { Component, Input } from '@angular/core';
       <p>
       Mirror(disabled, DD-MM-YYYY):
       <material-datepicker
-        emptyText="nothing is selected"
+        placeholder="nothing is selected"
         disabled="true"
         [(date)]="date"
         dateFormat="DD-MM-YYYY"
