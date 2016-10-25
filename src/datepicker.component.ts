@@ -273,7 +273,6 @@ export class DatepickerComponent implements OnInit, OnChanges {
   @Input() inputText: string;
   // view logic
   @Input() showCalendar: boolean;
-  initialized: boolean;
   // events
   @Output() onSelect = new EventEmitter<Date>();
   // time
@@ -296,7 +295,6 @@ export class DatepickerComponent implements OnInit, OnChanges {
   constructor(private renderer: Renderer, private elementRef: ElementRef) {
     this.dateFormat = 'YYYY-MM-DD';
     // view logic
-    this.initialized = false;
     this.showCalendar = false;
     // colors
     this.colors = {
@@ -319,12 +317,11 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.initialized = true;
     this.setDate();
   }
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-    if ((changes['date'] || changes['dateFormat']) && this.initialized) {
+    if ((changes['date'] || changes['dateFormat'])) {
         this.setDate();
     }
   }
@@ -341,11 +338,13 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   setDate(): void {
-    if (this.date) {
-      this.setInputText(this.date);
-    } else {
-      this.date = new Date();
+    if(!this.date) {
+      this.inputText = '';
+      this.date = null;
+      return;
     }
+
+    this.setInputText(this.date);
 
     this.currentMonthNumber = this.date.getMonth();
     this.currentMonth = this.months[this.currentMonthNumber];
@@ -452,8 +451,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
 
   onSelectDay(day: Date): void {
     this.date = day;
-    this.showCalendar = !this.showCalendar;
     this.onSelect.emit(day);
+    this.showCalendar = !this.showCalendar;
   }
 
   // Listeners
