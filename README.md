@@ -40,7 +40,7 @@ Optional parameters are listed below.
 |---|---|---|
 | `accentColor` | string  | Replaces the default blue accent color  |
 |`altInputStyle` | boolean | If `true`, changes the input styling to primarily use the accent color |
-|`disabled` | boolean | If `true`, adds disabled attribut to input |
+|`disabled` | boolean | If `true`, adds "disabled" attribute to input |
 |`emptyText` | string | This text will be shown if the date is empty |
 | `date` | Date | The source of truth for the selected date. If passed, the date will automatically be displayed in the input field and clicking on the input field will bring up the respective month. |
 | `dateFormat` | string | By default, the date will be shown in `YYYY-MM-DD` (ISO 8601 standard). Other formats include `MM-DD-YYYY` and `DD-MM-YYYY`. This string is *not* case sensitive. |
