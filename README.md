@@ -27,9 +27,16 @@ import { DatepickerModule as YourAlias } from 'angular2-material-datepicker'
 ```
 Call the component from within a template
 ```
-<material-datepicker [(date)]="yourModelDate"></material-datepicker>
+<material-datepicker [(date)]="modelDate"></material-datepicker>
 ```
 and you're set!
+
+You can pass an additional content to the button like an icon
+```
+<material-datepicker>
+  <i>Date: </i>
+</material-datepicker>
+```
 
 ### API
 The datepicker component can be called with no arguments. See the [Angular 2 Documentation](https://angular.io/docs/ts/latest/cookbook/component-communication.html) for how to communicate with child components. If you use an event emitter, the datepicker component has an emitter called `onSelect` (when the date is picked), and `dateChange` (for two-way binding).

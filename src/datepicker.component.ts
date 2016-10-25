@@ -30,8 +30,6 @@ import { Calendar } from './calendar';
     `.datepicker {
         position: relative;
         display: inline-block;
-        color: #2b2b2b;
-        font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'Calibri', 'Roboto';
       }
 
       .datepicker__calendar {
@@ -155,24 +153,17 @@ import { Calendar } from './calendar';
         margin: 0 1em;
         text-align: center;
       }
-
-      .datepicker__input {
-        outline: none;
-        border-radius: 0.1rem;
-        padding: .2em .6em;
-        font-size: 14px;
-      }
     `
   ],
   template: `
-    <div
-      class="datepicker"
-      [ngStyle]="{'font-family': fontFamily}"
-    >
-      <button [disabled]="disabled" (click)="onInputClick()">{{inputText}}</button>
+    <div class="datepicker">
+      <button [disabled]="disabled" (click)="onInputClick()">
+        <ng-content></ng-content>
+        {{ dateStr }}
+      </button>
       <div
         class="datepicker__calendar"
-        *ngIf="showCalendar"
+        *ngIf="isOpened"
       >
         <div class="datepicker__calendar__nav">
           <div
@@ -257,6 +248,7 @@ import { Calendar } from './calendar';
 export class DatepickerComponent implements OnInit, OnChanges {
 
   private dateVal: Date;
+  private isOpened: boolean;
 
   // two way bindings
   @Output() dateChange = new EventEmitter<Date>();
@@ -268,6 +260,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   // api bindings
+  
   @Input() disabled: boolean;
   @Input() accentColor: string;
   @Input() altInputStyle: boolean;
@@ -277,9 +270,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
   @Input() rangeEnd: Date;
   // data
   @Input() placeholder: string = 'Select a date';
-  @Input() inputText: string;
+  dateStr: string;
   // view logic
-  @Input() showCalendar: boolean;
   // events
   @Output() onSelect = new EventEmitter<Date>();
   // time
@@ -302,7 +294,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
   constructor(private renderer: Renderer, private elementRef: ElementRef) {
     this.dateFormat = 'YYYY-MM-DD';
     // view logic
-    this.showCalendar = false;
+    this.isOpened = false;
     // colors
     this.colors = {
       'black': '#333333',
@@ -340,7 +332,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
   // State Management
   // ------------------------------------------------------------------------------------
   closeCalendar(): void {
-    this.showCalendar = false;
+    this.isOpened = false;
     this.setDate();
   }
 
@@ -358,7 +350,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
       this.setCurrentValues(this.date);
     }
     else {
-      this.inputText = this.placeholder;
+      this.dateStr = this.placeholder;
       this.setCurrentValues(new Date());
     }
   }
@@ -387,23 +379,23 @@ export class DatepickerComponent implements OnInit, OnChanges {
       day = `0${day}`;
     }
 
-    let inputText: string;
+    let dateStr: string;
     switch (this.dateFormat.toUpperCase()) {
       case 'YYYY-MM-DD':
-        inputText = `${date.getFullYear()}/${month}/${day}`;
+        dateStr = `${date.getFullYear()}-${month}-${day}`;
         break;
       case 'MM-DD-YYYY':
-        inputText = `${month}/${day}/${date.getFullYear()}`;
+        dateStr = `${month}-${day}-${date.getFullYear()}`;
         break;
       case 'DD-MM-YYYY':
-        inputText = `${day}/${month}/${date.getFullYear()}`;
+        dateStr = `${day}-${month}-${date.getFullYear()}`;
         break;
       default:
-        inputText = `${date.getFullYear()}/${month}/${day}`;
+        dateStr = `${date.getFullYear()}-${month}-${day}`;
         break;
     }
 
-    this.inputText = inputText;
+    this.dateStr = dateStr;
   }
 
   // Click Handlers
@@ -455,13 +447,14 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   onInputClick(): void {
-    this.showCalendar = !this.showCalendar;
+    if (this.disabled) return;
+    this.isOpened = !this.isOpened;
   }
 
   onSelectDay(day: Date): void {
     this.date = day;
     this.onSelect.emit(day);
-    this.showCalendar = !this.showCalendar;
+    this.isOpened = !this.isOpened;
   }
 
   // Listeners

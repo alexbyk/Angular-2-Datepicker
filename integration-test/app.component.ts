@@ -3,26 +3,29 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'my-app',
   template: `
-      <material-datepicker
-        [(date)]="date"
-        (onSelect)="onSelect($event)"
-        dateFormat="YYYY-MM-DD"
-      ></material-datepicker>
+  <div>Test</div>
 
-      <button (click)="setToday()">today</button>
-      <button (click)="clearDate()">reset</button>
-      <hr>
-      {{ date }}
-      <p>
-      Mirror(disabled, DD-MM-YYYY):
-      <material-datepicker
-        placeholder="nothing is selected"
-        disabled="true"
-        [(date)]="date"
-        dateFormat="DD-MM-YYYY"
-      ></material-datepicker>
+    <button (click)="setToday()">today</button>
+    <button (click)="clearDate()">reset</button>
+    <p>
 
-    `
+    <material-datepicker
+    (onSelect)="onSelect($event)" [(date)]="date">
+    </material-datepicker>
+
+    <hr>
+    {{ date }}
+    <p>
+    Mirror(disabled, DD-MM-YYYY):
+    <material-datepicker
+    #datepickerMirror
+    placeholder="nothing is selected"
+    disabled="true"
+    [(date)]="date"
+    dateFormat="DD-MM-YYYY"
+    ><i>disabled DD-MM-YYYY:</i></material-datepicker>
+
+  `
 })
 export class AppComponent {
   date: Date;
