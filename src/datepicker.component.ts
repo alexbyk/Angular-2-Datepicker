@@ -170,6 +170,7 @@ import { Calendar } from './calendar';
       [ngStyle]="{'font-family': fontFamily}"
     >
       <input
+        [disabled]="disabled"
         class="datepicker__input"
         [ngStyle]="{'color': altInputStyle ? colors['white'] : colors['black'],
                     'background-color': altInputStyle ? accentColor : colors['white'],
@@ -276,6 +277,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   // api bindings
+  @Input() disabled: boolean;
   @Input() accentColor: string;
   @Input() altInputStyle: boolean;
   @Input() dateFormat: string;
