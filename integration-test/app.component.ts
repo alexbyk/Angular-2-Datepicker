@@ -5,26 +5,33 @@ import { Component, Input } from '@angular/core';
   template: `
       <material-datepicker
         #datePicker
-        [date]="date"
+        [(date)]="date"
         (onSelect)="onSelect($event)"
-        dateFormat="mm-dd-yyyy"
+        dateFormat="MM-DD-YYYY"
       ></material-datepicker>
 
-      <button (click)="datePicker.date=null">resetNull</button>
-      <button (click)="datePicker.date=''">resetEmpty</button>
-      Model: {{ date | json }}
-      DatePicker: {{ datePicker.date | json }}
+      <button (click)="setToday()">today</button>
+      <button (click)="datePicker.date=null">reset</button>
+      <hr>
+      Mirror:
+      <material-datepicker
+        [(date)]="date"
+        dateFormat="YYYY/MM/DD"
+      ></material-datepicker>
+      <p>
+      {{ date }} - Model
+      <p>
+      {{ datePicker.date }} - DatePicker
+
     `
 })
 export class AppComponent {
   @Input() date: Date;
 
   onSelect(date) {
-    this.date = date;
     console.log("onSelect: ", date);
   }
-
-  constructor() {
-    setTimeout(() => this.date = new Date(2016, 0, 1), 2000);
+  setToday() {
+    this.date = new Date();
   }
 }
