@@ -249,18 +249,26 @@ export class DatepickerComponent implements OnInit, OnChanges {
 
   private dateVal: Date;
   private isOpened: boolean;
+  private fixOffset(date: Date) {
+    if (!date) return date;
+    date.setTime(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0));
+    return date;
+  }
+
 
   // two way bindings
   @Output() dateChange = new EventEmitter<Date>();
 
+
   @Input() get date(): Date { return this.dateVal; };
   set date(val: Date) {
+    this.fixOffset(val);
     this.dateVal = val;
     this.dateChange.emit(val);
   }
 
   // api bindings
-  
+
   @Input() disabled: boolean;
   @Input() accentColor: string;
   @Input() altInputStyle: boolean;

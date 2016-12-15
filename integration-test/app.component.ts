@@ -14,7 +14,7 @@ import { Component, Input } from '@angular/core';
     </material-datepicker>
 
     <hr>
-    {{ date }}
+    {{ date?.toJSON() }}
     <p>
     Mirror(disabled, DD-MM-YYYY):
     <material-datepicker
